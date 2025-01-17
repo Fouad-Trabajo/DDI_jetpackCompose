@@ -16,11 +16,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.tutorialjetpackcompose.ui.theme.TutorialJetpackComposeTheme
@@ -61,6 +63,7 @@ fun preview() {
         }
         mesage("mundo!")
         Image(painterResource(R.drawable.ic_launcher_foreground), contentDescription = "Artist image")
+        SimpleText()
     }
 }
 
@@ -71,6 +74,14 @@ fun tableMultiplicy(table: Int) {
             Text(text = "$table * $x = ${table * x}")
         }
     }
+}
+@Composable
+fun SimpleText() {
+    Text(text = "Hello World ",
+    color = Color.Red,
+    fontSize = 32.sp,
+    fontStyle = FontStyle.Italic,
+    fontWeight = FontWeight.Bold)
 }
 
 @Composable
