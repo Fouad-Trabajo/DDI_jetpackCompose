@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -14,12 +15,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -62,6 +68,27 @@ class MainActivity : ComponentActivity() {
 
 @Preview
 @Composable
+fun previewBox() {
+    Box(modifier= Modifier.fillMaxSize()){
+        Image(
+            painterResource(R.drawable.avatar1),
+            contentDescription = null,
+            modifier = Modifier.size(150.dp).clip(CircleShape))
+
+        Image(
+            painterResource(R.drawable.avatar2),
+            contentDescription = null,
+            modifier = Modifier.size(150.dp).clip(CircleShape).align(Alignment.BottomCenter))
+
+        Icon(painterResource(R.drawable.ic_check),
+            contentDescription = null,
+            modifier = Modifier.align(Alignment.TopEnd))
+
+    }
+}
+
+@Preview
+@Composable
 fun previewEjercicio12() {
     Column(modifier = Modifier.fillMaxSize()) {
         Row(
@@ -77,8 +104,6 @@ fun previewEjercicio12() {
                     painterResource(R.drawable.avatar1), contentDescription = null,
                     modifier = Modifier
                         .size(150.dp)
-
-
                 )
 
                 Text(text = "MUCHACHO", modifier = Modifier)
@@ -91,8 +116,6 @@ fun previewEjercicio12() {
                     painterResource(R.drawable.avatar2), contentDescription = null,
                     modifier = Modifier
                         .size(150.dp)
-
-
                 )
                 Text(text = "MUCHACHA", modifier = Modifier)
             }
