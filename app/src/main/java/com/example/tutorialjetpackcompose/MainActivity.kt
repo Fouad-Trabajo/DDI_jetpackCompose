@@ -7,38 +7,46 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.Menu
+import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.tutorialjetpackcompose.ui.theme.TutorialJetpackComposeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,26 +74,71 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 fun previewBox() {
-    Box(modifier= Modifier.fillMaxSize()){
-        Image(
-            painterResource(R.drawable.avatar1),
-            contentDescription = null,
-            modifier = Modifier.size(150.dp).clip(CircleShape))
+    TopAppBar(
+        navigationIcon = {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(imageVector = Icons.Rounded.ArrowBack, contentDescription = null)
+            }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            titleContentColor = MaterialTheme.colorScheme.primary,
+        ),
+        title = {
+            Text("WhatsApp")
+        },
+        actions = {
+            IconButton(onClick = {}) {
+                Icon(
+                    imageVector = Icons.Rounded.Home,
+                    contentDescription = null
+                )
+            }
+            IconButton(onClick = {}) {
+                Icon(
+                    imageVector = Icons.Rounded.Search,
+                    contentDescription = null
+                )
+            }
+            IconButton(onClick = {}) {
+                Icon(
+                    imageVector = Icons.Rounded.Menu,
+                    contentDescription = null
+                )
+            }
+        }
+    )
 
-        Image(
-            painterResource(R.drawable.avatar2),
-            contentDescription = null,
-            modifier = Modifier.size(150.dp).clip(CircleShape).align(Alignment.BottomCenter))
 
-        Icon(painterResource(R.drawable.ic_check),
-            contentDescription = null,
-            modifier = Modifier.align(Alignment.TopEnd))
+    var selectedItem by remember { mutableIntStateOf(0) }
+    val items = listOf("Songs", "Artists", "Playlists")
+    val selectedIcons = listOf(Icons.Filled.Home, Icons.Filled.Favorite, Icons.Filled.Star)
+    val unselectedIcons =
+        listOf(Icons.Outlined.Home, Icons.Outlined.FavoriteBorder, Icons.Outlined.Star)
 
+    NavigationBar {
+        items.forEachIndexed { index, item ->
+            NavigationBarItem(
+                icon = {
+                    Icon(
+                        if (selectedItem == index) selectedIcons[index] else unselectedIcons[index],
+                        contentDescription = item
+                    )
+                },
+                label = { Text(item) },
+                selected = selectedItem == index,
+                onClick = { selectedItem = index }
+            )
+        }
     }
+
+
 }
+
 
 @Preview
 @Composable
